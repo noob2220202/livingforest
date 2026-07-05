@@ -1,13 +1,18 @@
-import PlaceholderArt from "./PlaceholderArt";
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative">
-      <PlaceholderArt
-        palette={["#4a5d44", "#262421"]}
-        className="h-[70vh] min-h-[420px]"
+    <section className="relative h-[70vh] min-h-[420px]">
+      <Image
+        src="/images/hero.jpg"
+        alt="리빙포레스트 침실 컬렉션"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
       />
-      <div className="absolute inset-0 flex items-center">
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/35 to-transparent" />
+      <div className="relative h-full flex items-center">
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8">
           <div className="max-w-lg text-linen">
             <p className="text-xs tracking-[0.3em] uppercase text-linen/70 mb-4">

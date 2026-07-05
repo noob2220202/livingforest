@@ -1,9 +1,9 @@
-import PlaceholderArt from "./PlaceholderArt";
+import PhotoTile from "./PhotoTile";
 
 const CATEGORIES = [
-  { name: "침구", desc: "시트 · 이불커버 · 커버렛", palette: ["#cfc6ac", "#2f3e2f"] as [string, string] },
-  { name: "배스", desc: "타월 · 가운 · 배스 러그", palette: ["#e9e2d0", "#6b7a63"] as [string, string] },
-  { name: "액세서리", desc: "스로우 · 필로우 · 홈케어", palette: ["#e4dcc6", "#b08d57"] as [string, string] },
+  { name: "침구", desc: "시트 · 이불커버 · 커버렛", image: "/images/cat-bedding.jpg" },
+  { name: "배스", desc: "타월 · 가운 · 배스 러그", image: "/images/cat-bath.jpg" },
+  { name: "액세서리", desc: "스로우 · 필로우 · 홈케어", image: "/images/cat-accessory.jpg" },
 ];
 
 export default function CategoryGrid() {
@@ -16,7 +16,12 @@ export default function CategoryGrid() {
       <div className="grid sm:grid-cols-3 gap-4">
         {CATEGORIES.map((cat) => (
           <a key={cat.name} href="#" className="group block">
-            <PlaceholderArt palette={cat.palette} className="aspect-[3/4] w-full" />
+            <PhotoTile
+              src={cat.image}
+              alt={cat.name}
+              className="aspect-[3/4] w-full"
+              sizes="(max-width: 640px) 100vw, 33vw"
+            />
             <div className="mt-3">
               <h3 className="font-display text-lg group-hover:text-forest transition-colors">{cat.name}</h3>
               <p className="text-sm text-charcoal/60">{cat.desc}</p>

@@ -1,14 +1,16 @@
-import PlaceholderArt from "./PlaceholderArt";
+import PhotoTile from "./PhotoTile";
 import { newArrivals } from "@/data/products";
 
 export default function GetTheLook() {
   return (
     <section className="bg-linen-deep">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 gap-10 items-center">
-        <PlaceholderArt
-          palette={["#e4dcc6", "#4a5d44"]}
+        <PhotoTile
+          src="/images/get-the-look.jpg"
+          alt="엘라 리넨 컬렉션"
           label="Ella Collection"
           className="aspect-[4/3] w-full"
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div>
           <p className="text-xs tracking-[0.3em] uppercase text-forest-soft mb-2">Get the Look</p>

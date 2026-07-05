@@ -2,7 +2,7 @@
 
 import { Product } from "@/lib/types";
 import { useStore } from "@/lib/store-context";
-import PlaceholderArt from "./PlaceholderArt";
+import PhotoTile from "./PhotoTile";
 
 const BADGE_STYLE: Record<NonNullable<Product["badge"]>, string> = {
   BEST: "bg-forest text-linen",
@@ -20,7 +20,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <div className="group flex flex-col">
       <div className="relative">
-        <PlaceholderArt palette={product.palette} className="aspect-[4/5] w-full" />
+        <PhotoTile src={product.image} alt={product.name} className="aspect-[4/5] w-full" />
         {product.badge && (
           <span
             className={`absolute top-3 left-3 px-2 py-1 text-[10px] tracking-wider ${BADGE_STYLE[product.badge]}`}

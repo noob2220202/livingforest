@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useStore } from "@/lib/store-context";
-import PlaceholderArt from "./PlaceholderArt";
+import PhotoTile from "./PhotoTile";
 
 export default function QuickViewModal() {
   const { quickViewProduct, closeQuickView, addToCart } = useStore();
@@ -34,7 +34,12 @@ export default function QuickViewModal() {
         className="bg-linen max-w-2xl w-full grid sm:grid-cols-2 gap-6 p-6 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <PlaceholderArt palette={product.palette} className="aspect-square w-full" />
+        <PhotoTile
+          src={product.image}
+          alt={product.name}
+          className="aspect-square w-full"
+          sizes="(max-width: 640px) 100vw, 400px"
+        />
         <div>
           <div className="flex justify-between items-start">
             <div>

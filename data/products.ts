@@ -3,6 +3,7 @@ import { Product } from "@/lib/types";
 export const products: Product[] = [
   {
     id: "signature-sateen-set",
+    image: "/images/product-signature-sateen-set.jpg",
     name: "시그니처 순면 사틴 침구 세트",
     category: "침구",
     material: "300수 순면 사틴",
@@ -11,7 +12,6 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 312,
     badge: "BEST",
-    palette: ["#f5f1e8", "#cfc6ac"],
     options: {
       sizes: ["싱글", "슈퍼싱글", "퀸", "킹"],
       colors: ["아이보리", "그레이지", "포레스트그린"],
@@ -21,6 +21,7 @@ export const products: Product[] = [
   },
   {
     id: "washed-linen-duvet",
+    image: "/images/product-washed-linen-duvet.jpg",
     name: "워시드 리넨 이불커버",
     category: "침구",
     material: "100% 벨기에 리넨",
@@ -28,7 +29,6 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 187,
     badge: "NEW",
-    palette: ["#e9e2d0", "#a7b09a"],
     options: {
       sizes: ["퀸", "킹"],
       colors: ["내추럴", "차콜", "세이지"],
@@ -38,13 +38,13 @@ export const products: Product[] = [
   },
   {
     id: "percale-sheet-set",
+    image: "/images/product-percale-sheet-set.jpg",
     name: "퍼케일 호텔식 시트 세트",
     category: "침구",
     material: "200수 순면 퍼케일",
     price: 129000,
     rating: 4.7,
     reviewCount: 241,
-    palette: ["#ffffff", "#dfe3da"],
     options: {
       sizes: ["싱글", "퀸", "킹"],
       colors: ["화이트", "그레이지"],
@@ -53,6 +53,7 @@ export const products: Product[] = [
   },
   {
     id: "matelasse-coverlet",
+    image: "/images/product-matelasse-coverlet.jpg",
     name: "마틀라세 누빔 커버렛",
     category: "침구",
     material: "순면 마틀라세",
@@ -60,7 +61,6 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 98,
     badge: "BEST",
-    palette: ["#f0ece1", "#4a5d44"],
     options: {
       sizes: ["퀸", "킹"],
       colors: ["아이보리", "포레스트그린"],
@@ -70,6 +70,7 @@ export const products: Product[] = [
   },
   {
     id: "silk-pillowcase",
+    image: "/images/product-silk-pillowcase.jpg",
     name: "실크 필로우케이스",
     category: "액세서리",
     material: "22미미 멀버리 실크",
@@ -77,7 +78,6 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 156,
     badge: "NEW",
-    palette: ["#e7ded0", "#b08d57"],
     options: {
       sizes: ["스탠다드", "퀸"],
       colors: ["샴페인", "차콜", "더스티로즈"],
@@ -86,6 +86,7 @@ export const products: Product[] = [
   },
   {
     id: "washed-cotton-towel-set",
+    image: "/images/product-washed-cotton-towel-set.jpg",
     name: "워시드 코튼 타월 6종 세트",
     category: "배스",
     material: "600g 강연사 순면",
@@ -94,7 +95,6 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 203,
     badge: "SALE",
-    palette: ["#f5f1e8", "#8b9a86"],
     options: {
       sizes: ["페이스", "핸드", "배스"],
       colors: ["화이트", "세이지", "그레이지"],
@@ -103,13 +103,13 @@ export const products: Product[] = [
   },
   {
     id: "wool-throw-blanket",
+    image: "/images/product-wool-throw-blanket.jpg",
     name: "울 혼방 스로우 블랑켓",
     category: "액세서리",
     material: "울 70% 캐시미어 30%",
     price: 149000,
     rating: 4.9,
     reviewCount: 74,
-    palette: ["#cfc6ac", "#3d3a34"],
     options: {
       sizes: ["단일 사이즈"],
       colors: ["오트밀", "포레스트그린", "차콜"],
@@ -118,13 +118,13 @@ export const products: Product[] = [
   },
   {
     id: "bath-robe",
+    image: "/images/product-bath-robe.jpg",
     name: "와플 코튼 배스로브",
     category: "배스",
     material: "순면 와플",
     price: 92000,
     rating: 4.6,
     reviewCount: 61,
-    palette: ["#e9e2d0", "#6b7a63"],
     options: {
       sizes: ["S/M", "L/XL"],
       colors: ["아이보리", "포레스트그린"],

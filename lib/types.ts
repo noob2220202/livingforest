@@ -15,7 +15,7 @@ export interface Product {
   rating: number;
   reviewCount: number;
   badge?: "BEST" | "NEW" | "SALE";
-  palette: [string, string];
+  image: string;
   options: ProductOption;
   description: string;
 }
