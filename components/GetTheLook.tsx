@@ -1,7 +1,13 @@
+"use client";
+
+import Link from "next/link";
 import PhotoTile from "./PhotoTile";
 import { newArrivals } from "@/data/products";
+import { useStore } from "@/lib/store-context";
 
 export default function GetTheLook() {
+  const { openQuickView } = useStore();
+
   return (
     <section className="bg-linen-deep">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 gap-10 items-center">
@@ -21,18 +27,23 @@ export default function GetTheLook() {
           </p>
           <ul className="space-y-3 mb-8">
             {newArrivals.map((product) => (
-              <li key={product.id} className="flex items-center justify-between text-sm border-b border-sand pb-3">
-                <span>{product.name}</span>
-                <span className="text-charcoal/70">{product.price.toLocaleString("ko-KR")}원</span>
+              <li key={product.id} className="border-b border-sand pb-3">
+                <button
+                  onClick={() => openQuickView(product)}
+                  className="w-full flex items-center justify-between text-sm text-left hover:text-forest transition-colors"
+                >
+                  <span>{product.name}</span>
+                  <span className="text-charcoal/70">{product.price.toLocaleString("ko-KR")}원</span>
+                </button>
               </li>
             ))}
           </ul>
-          <a
-            href="#new-arrivals"
+          <Link
+            href="/products?filter=new"
             className="inline-block bg-forest text-linen px-8 py-3 text-sm tracking-wide hover:bg-forest-light transition-colors"
           >
             컬렉션 전체 보기
-          </a>
+          </Link>
         </div>
       </div>
     </section>

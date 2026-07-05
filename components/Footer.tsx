@@ -1,21 +1,44 @@
-import { company } from "@/data/company";
+"use client";
 
-const FOOTER_LINKS = [
+import Link from "next/link";
+import { company } from "@/data/company";
+import { useStore } from "@/lib/store-context";
+
+const FOOTER_LINKS: { heading: string; links: { label: string; href: string }[] }[] = [
   {
     heading: "쇼핑",
-    links: ["베스트셀러", "신상품", "침구", "배스", "모노그램 샵", "세일"],
+    links: [
+      { label: "베스트셀러", href: "/#best-sellers" },
+      { label: "신상품", href: "/products?filter=new" },
+      { label: "침구", href: "/products?category=침구" },
+      { label: "배스", href: "/products?category=배스" },
+      { label: "모노그램 샵", href: "/monogram" },
+      { label: "세일", href: "/products?filter=sale" },
+    ],
   },
   {
     heading: "고객지원",
-    links: ["배송 안내", "교환/반품 안내", "사이즈 가이드", "스와치 요청", "매장 찾기"],
+    links: [
+      { label: "배송 안내", href: "/shipping" },
+      { label: "교환/반품 안내", href: "/returns" },
+      { label: "사이즈 가이드", href: "/size-guide" },
+      { label: "매장 찾기", href: "/store-locator" },
+    ],
   },
   {
     heading: "브랜드",
-    links: ["브랜드 스토리", "지속가능성", "디자인 상담", "채용"],
+    links: [
+      { label: "브랜드 스토리", href: "/about" },
+      { label: "지속가능성", href: "/sustainability" },
+      { label: "디자인 상담", href: "/consultation" },
+      { label: "채용", href: "/careers" },
+    ],
   },
 ];
 
 export default function Footer() {
+  const { openSwatchRequest } = useStore();
+
   return (
     <footer className="bg-forest text-linen mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
@@ -32,12 +55,19 @@ export default function Footer() {
               <div className="text-sm font-semibold mb-3 tracking-wide">{group.heading}</div>
               <ul className="space-y-2 text-sm text-linen/70">
                 {group.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="hover:text-linen transition-colors">
-                      {link}
-                    </a>
+                  <li key={link.label}>
+                    <Link href={link.href} className="hover:text-linen transition-colors">
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
+                {group.heading === "고객지원" && (
+                  <li>
+                    <button onClick={openSwatchRequest} className="hover:text-linen transition-colors">
+                      스와치 요청
+                    </button>
+                  </li>
+                )}
               </ul>
             </div>
           ))}

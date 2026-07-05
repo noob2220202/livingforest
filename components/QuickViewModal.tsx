@@ -5,7 +5,7 @@ import { useStore } from "@/lib/store-context";
 import PhotoTile from "./PhotoTile";
 
 export default function QuickViewModal() {
-  const { quickViewProduct, closeQuickView, addToCart } = useStore();
+  const { quickViewProduct, closeQuickView, addToCart, openCart } = useStore();
   const [size, setSize] = useState<string | null>(null);
   const [color, setColor] = useState<string | null>(null);
   const [added, setAdded] = useState(false);
@@ -21,9 +21,17 @@ export default function QuickViewModal() {
   }
 
   function handleAddToCart() {
-    addToCart(1);
+    if (!size || !color) return;
+    addToCart(product, size, color, 1);
     setAdded(true);
   }
+
+  function handleViewCart() {
+    handleClose();
+    openCart();
+  }
+
+  const canAdd = Boolean(size && color);
 
   return (
     <div
@@ -59,12 +67,17 @@ export default function QuickViewModal() {
           <p className="text-sm text-charcoal/70 mt-3 leading-relaxed">{product.description}</p>
 
           <div className="mt-5">
-            <p className="text-xs tracking-wide text-charcoal/70 mb-2">사이즈</p>
+            <p className="text-xs tracking-wide text-charcoal/70 mb-2">
+              사이즈{!size && <span className="text-gold"> · 선택해주세요</span>}
+            </p>
             <div className="flex flex-wrap gap-2">
               {product.options.sizes.map((s) => (
                 <button
                   key={s}
-                  onClick={() => setSize(s)}
+                  onClick={() => {
+                    setSize(s);
+                    setAdded(false);
+                  }}
                   className={`px-3 py-1.5 text-xs border ${
                     size === s ? "border-forest bg-forest text-linen" : "border-sand text-charcoal"
                   }`}
@@ -76,12 +89,17 @@ export default function QuickViewModal() {
           </div>
 
           <div className="mt-4">
-            <p className="text-xs tracking-wide text-charcoal/70 mb-2">컬러</p>
+            <p className="text-xs tracking-wide text-charcoal/70 mb-2">
+              컬러{!color && <span className="text-gold"> · 선택해주세요</span>}
+            </p>
             <div className="flex flex-wrap gap-2">
               {product.options.colors.map((c) => (
                 <button
                   key={c}
-                  onClick={() => setColor(c)}
+                  onClick={() => {
+                    setColor(c);
+                    setAdded(false);
+                  }}
                   className={`px-3 py-1.5 text-xs border ${
                     color === c ? "border-forest bg-forest text-linen" : "border-sand text-charcoal"
                   }`}
@@ -92,12 +110,27 @@ export default function QuickViewModal() {
             </div>
           </div>
 
-          <button
-            onClick={handleAddToCart}
-            className="mt-6 w-full bg-forest text-linen py-3 text-sm tracking-wide hover:bg-forest-light transition-colors disabled:opacity-50"
-          >
-            {added ? "장바구니에 담았습니다" : "장바구니 담기"}
-          </button>
+          {added ? (
+            <div className="mt-6 space-y-2">
+              <div className="w-full bg-forest/10 text-forest py-3 text-sm tracking-wide text-center">
+                장바구니에 담았습니다
+              </div>
+              <button
+                onClick={handleViewCart}
+                className="w-full border border-forest text-forest py-3 text-sm tracking-wide hover:bg-forest hover:text-linen transition-colors"
+              >
+                장바구니 보기
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleAddToCart}
+              disabled={!canAdd}
+              className="mt-6 w-full bg-forest text-linen py-3 text-sm tracking-wide hover:bg-forest-light transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              장바구니 담기
+            </button>
+          )}
         </div>
       </div>
     </div>

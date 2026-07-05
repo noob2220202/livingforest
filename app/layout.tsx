@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PromoBar from "@/components/PromoBar";
 import QuickViewModal from "@/components/QuickViewModal";
 import SwatchRequestModal from "@/components/SwatchRequestModal";
+import CartDrawer from "@/components/CartDrawer";
 
 const notoSerifKr = Noto_Serif_KR({
   variable: "--font-noto-serif-kr",
@@ -40,6 +41,7 @@ export default function RootLayout({
           <Footer />
           <QuickViewModal />
           <SwatchRequestModal />
+          <CartDrawer />
         </StoreProvider>
       </body>
     </html>

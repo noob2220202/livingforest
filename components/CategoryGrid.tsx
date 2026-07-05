@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PhotoTile from "./PhotoTile";
 
 const CATEGORIES = [
@@ -15,7 +16,7 @@ export default function CategoryGrid() {
       </div>
       <div className="grid sm:grid-cols-3 gap-4">
         {CATEGORIES.map((cat) => (
-          <a key={cat.name} href="#" className="group block">
+          <Link key={cat.name} href={`/products?category=${encodeURIComponent(cat.name)}`} className="group block">
             <PhotoTile
               src={cat.image}
               alt={cat.name}
@@ -26,7 +27,7 @@ export default function CategoryGrid() {
               <h3 className="font-display text-lg group-hover:text-forest transition-colors">{cat.name}</h3>
               <p className="text-sm text-charcoal/60">{cat.desc}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </section>
