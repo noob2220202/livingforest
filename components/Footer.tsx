@@ -39,6 +39,12 @@ const FOOTER_LINKS: { heading: string; links: { label: string; href: string }[] 
 export default function Footer() {
   const { openSwatchRequest } = useStore();
 
+  const contactParts = [
+    company.mailOrderNo ? `통신판매업신고번호 ${company.mailOrderNo}` : null,
+    company.csPhone ? `고객센터 ${company.csPhone}` : null,
+    company.csEmail ? `이메일 ${company.csEmail}` : null,
+  ].filter(Boolean);
+
   return (
     <footer className="bg-forest text-linen mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
@@ -82,12 +88,9 @@ export default function Footer() {
             사업장 소재지 {company.workplaceAddress} · 본점 소재지 {company.headOfficeAddress}
           </p>
           <p>업태 {company.businessType} · 종목 {company.businessItems}</p>
-          <p>
-            통신판매업신고번호 {company.mailOrderNo ?? "등록 예정"} · 고객센터{" "}
-            {company.csPhone ?? "등록 예정"} · 이메일 {company.csEmail ?? "등록 예정"}
-          </p>
+          {contactParts.length > 0 && <p>{contactParts.join(" · ")}</p>}
           <p className="pt-2 text-linen/40">
-            &copy; {new Date().getFullYear()} {company.legalName}. All rights reserved.
+            &copy; 2025 {company.legalName}. All rights reserved.
           </p>
         </div>
       </div>
