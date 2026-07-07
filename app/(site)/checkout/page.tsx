@@ -13,13 +13,43 @@ export default function CheckoutPage() {
   const { cartItems, cartTotal, clearCart } = useStore();
   const [placed, setPlaced] = useState(false);
   const [orderNo, setOrderNo] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
 
-  function handleSubmit(e: FormEvent) {
+  const shippingFee = cartTotal >= 150000 ? 0 : 3000;
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const no = `LF${Date.now().toString().slice(-8)}`;
-    setOrderNo(no);
-    setPlaced(true);
-    clearCart();
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: name,
+          customerPhone: phone,
+          shippingAddress: address,
+          items: cartItems.map((line) => ({
+            name: `${line.product.name} (${line.size}/${line.color})`,
+            qty: line.qty,
+            price: line.product.price,
+          })),
+          amount: cartTotal + shippingFee,
+        }),
+      });
+      if (!res.ok) throw new Error();
+      const json = (await res.json()) as { orderNo: string };
+      setOrderNo(json.orderNo);
+      setPlaced(true);
+      clearCart();
+    } catch {
+      alert("주문 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (placed) {
@@ -61,18 +91,24 @@ export default function CheckoutPage() {
             type="text"
             required
             placeholder="받으실 분 성함"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="w-full px-4 py-2.5 text-sm border border-sand outline-none focus:border-forest"
           />
           <input
             type="tel"
             required
             placeholder="연락처"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             className="w-full px-4 py-2.5 text-sm border border-sand outline-none focus:border-forest"
           />
           <input
             type="text"
             required
             placeholder="배송 주소"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             className="w-full px-4 py-2.5 text-sm border border-sand outline-none focus:border-forest"
           />
           <input
@@ -106,19 +142,20 @@ export default function CheckoutPage() {
           </div>
           <div className="flex justify-between text-charcoal/70">
             <span>배송비</span>
-            <span>{cartTotal >= 150000 ? "무료" : formatPrice(3000)}</span>
+            <span>{shippingFee === 0 ? "무료" : formatPrice(shippingFee)}</span>
           </div>
           <div className="flex justify-between text-lg font-semibold pt-2 border-t border-sand">
             <span>총 결제금액</span>
-            <span>{formatPrice(cartTotal >= 150000 ? cartTotal : cartTotal + 3000)}</span>
+            <span>{formatPrice(cartTotal + shippingFee)}</span>
           </div>
         </div>
         <button
           type="submit"
           form="checkout-form"
-          className="mt-6 w-full bg-forest text-linen py-3.5 text-sm tracking-wide hover:bg-forest-light transition-colors"
+          disabled={submitting}
+          className="mt-6 w-full bg-forest text-linen py-3.5 text-sm tracking-wide hover:bg-forest-light transition-colors disabled:opacity-60"
         >
-          주문 완료하기
+          {submitting ? "접수 중…" : "주문 완료하기"}
         </button>
       </div>
     </div>
